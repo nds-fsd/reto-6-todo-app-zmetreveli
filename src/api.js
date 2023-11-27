@@ -11,6 +11,9 @@ export const fetchData = async () => {
     console.log(error.message);
   }
 };
+
+// *------------- DELETE ------------------
+
 export const deleteTodo = async (todoId) => {
   console.log(todoId);
   try {
@@ -24,5 +27,50 @@ export const deleteTodo = async (todoId) => {
     return result;
   } catch (error) {
     console.log(error.message);
+  }
+};
+
+// *-------------------- CREATE ------------------------
+
+export const createTodo = async (todoData) => {
+  try {
+    const response = await fetch(`${url}/todo`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todoData),
+    });
+    if (!response.ok) {
+      throw new Error("Error al crear todo");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+// *--------------------- MODIFY ------------------------
+
+export const modifyTodo = async (todoData) => {
+  try {
+    const response = await fetch(`${url}/todo`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todoData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al modificar todo");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("An error occurred:", error.message);
+    throw error;
   }
 };
